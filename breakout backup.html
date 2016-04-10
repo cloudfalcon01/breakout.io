@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Breakout</title>
+	<style>
+	* { padding: 0; margin: 0;}
+	canvas { background: #eee; display: block; margin: 0 auto;}
+	</style>
+</head>
+<body>
+<canvas id="Break2" width= "960" height="640"></canvas>
+<script>
+var canvas = document.getElementById("Break2");
+var ctx = canvas.getContext("2d");
+var x = canvas.width / 2;
+var y = canvas.height - 30;
+var dx = 2;
+var dy = -2;
+var ballRadius = 10;
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth)/2;
+var rightPressed = false;
+var leftPressed =false;
+var brickRowCount = 9;
+var brickColumnCount = 16;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
+var score = 0;
+var lives = 3;
+
+//calculations for brick columns
+var bricks = [];
+for(var c=0; c<brickColumnCount; c++) {
+	bricks[c]  = [];
+	for (var r=0; r<brickRowCount; r++) {
+		bricks[c][r] = {
+			x: (c*(brickWidth+brickPadding))+brickOffsetLeft, 
+			y: (r*(brickHeight+brickPadding))+brickOffsetTop,
+			status: 1
+		};
+	}
+}
+//drawing the bricks
+function drawBricks() {
+
+	for(var c=0; c<brickColumnCount; c++) {
+		for(var r=0; r<brickRowCount; r++) {
+			if (bricks [c][r].status == 1) {
+				var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+				var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+				ctx.beginPath();
+				ctx.rect(brickX,brickY, brickWidth, brickHeight);
+				ctx.fillStyle = "0095DD";
+				ctx.fill();
+				ctx.closePath();
+			}
+			
+		}
+	}
+}
+//the calculations for breaking the bricks when the ball hits them and telling you when you win
+function collisionDetection() {
+    for(c=0; c<brickColumnCount; c++) {
+        for(r=0; r<brickRowCount; r++) {
+            var b = bricks[c][r];
+            if(b.status == 1) {
+                if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                	console.log('check');
+                    dy = -dy;
+                    b.status = 0;
+                    score++;
+                    if(score == brickRowCount*brickColumnCount) {
+                    	alert("YOU'VE DONE IT! YOU HAVE BEAT THIS GAME! GONGRATS. YOU HAVE SURVIVED FAIL AFTER FAIL, INSULT AFTER INSULT, YOU HAVE DONE IT ALL. CONGRATULAIONS!")
+                    	document.location.reload();
+                    }
+                }
+            }
+        }
+    }
+}
+//shwowing the score
+function drawScore() {
+	ctx.font = "16px Georgia";
+	ctx.fillStyle = "orange";
+	ctx.fillText("Score: "+score, 8, 20);
+}
+//showing the lives
+function drawLives() {
+	ctx.font = "16px Georgia";
+	ctx.fillStyle = "orange";
+	ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+}
+
+//the event listeners 
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
+document.addEventListener("touchmove",touchMoveHandler, false);
+
+//the arrow key handlers that move the paddle
+function keyDownHandler(e) {
+	if(e.keyCode == 39) {
+		rightPressed = true;
+	}
+
+	else if(e.keyCode == 37){
+		leftPressed = true;
+	}
+}
+
+function keyUpHandler(e) {
+	if(e.keyCode == 39) {
+		rightPressed = false;
+	}
+
+	else if(e.keyCode == 37){
+		leftPressed = false;
+	}
+}
+//drawing the ball
+function drawBall() {
+	ctx.beginPath();
+	ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+	ctx.fillStyle="red";
+	ctx.fill();
+	ctx.closePath();
+}
+
+//drawing the paddle
+function drawPaddle() {
+	ctx.beginPath;
+	ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+	ctx.fillStyle = "green";
+	ctx.fill();
+	ctx.closePath();
+}
+//the mouse handler for using the mouse to control the paddle
+function mouseMoveHandler(e) {	
+	// This line of code creates the variable relativeX inside the function mouseMoveHandler.  
+	// This line of code acceses the mouse coordinates from the browser through the variable e. 
+	// Then it subtracts the border of the canvas from it. 
+	// This makes it the X coordinates of the mouse in the canvas. 
+	// Then it stores it in the variable relativeX.
+	var relativeX = e.clientX - canvas.offsetLeft;
+	// This line of code prevents the paddle from moving out of the canvas.
+	if(relativeX > 0 && relativeX <canvas.width) {
+		// This line of code takes the X coordinates of the paddle and 
+		// changes them to the X coordiantes of the mouse in the canvas minus the width of the paddle, (75), divided by 2.
+		paddleX = relativeX - paddleWidth/2;
+	}
+}
+
+function touchMoveHandler(e) {
+	if (!e) {
+		var e = event;
+	}
+	e.preventDefault();
+	var relativeX = e.targetTouches[0].pageX - canvas.offsetLeft;
+	//remember: same paddle code, since the cause stays the same, but the effect changes.
+	if(relativeX > 0 && relativeX <canvas.width) {
+		paddleX = relativeX - paddleWidth/2;
+	}
+
+	}
+
+//calling the funtions
+function draw() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	collisionDetection();
+	drawBall();
+	drawPaddle();
+	drawBricks();
+	drawScore();
+	drawLives();
+
+	
+
+	if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+    }
+	if(y + dy < ballRadius) {
+        dy = -dy;
+    } else if(y + dy > canvas.height-ballRadius) {
+    	if(x>paddleX && x < paddleX+paddleWidth) {
+    		dy = -dy;
+    	}
+    	else{
+    		lives--;
+    		if(!lives) {
+    		alert("GAME OVER, YOU POT-BELLIED PEABRAINED SON OF A CODFISH!");
+    		dx = 0;
+    		dy = 0;
+    		document.location.reload();
+    		}
+    		else {
+    			x = canvas.width/2;
+    			y = canvas.height-30;
+    			dx = 2;
+    			dy = -2;
+    			paddleX = (canvas.width-paddleWidth)/2
+    		}
+    		
+    	}
+    }
+
+	 if(rightPressed && paddleX < canvas.width-paddleWidth) {
+        paddleX += 7;
+    }
+	else if(leftPressed && paddleX > 0) {
+        paddleX -= 7;
+    }
+
+	x += dx;
+	y += dy;
+
+
+}
+
+//calling the draw funtion every ten seconds (may be used later for changing difficulty)
+setInterval(draw, 8); 
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

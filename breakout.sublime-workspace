@@ -1,0 +1,203 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"touch",
+				"touchMoveHandler"
+			],
+			[
+				"offset",
+				"brickOffsetLeft"
+			],
+			[
+				"f",
+				"fgh"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 127.0,
+		"last_filter": "view",
+		"selected_items":
+		[
+			[
+				"view",
+				"File: New View into File"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/arnav/Desktop/test.html",
+		"/Users/arnav/Desktop/breakoutScript.js",
+		"/Users/arnav/Desktop/breakoutHomeScreen.html",
+		"/Users/arnav/Desktop/breakout.html",
+		"/Users/arnav/Desktop/intrests.html",
+		"/Users/arnav/Desktop/Lloyd/site.html",
+		"/Users/arnav/Desktop/breakout2.html",
+		"/Users/arnav/Desktop/game.html",
+		"/Users/arnav/Desktop/Write.html",
+		"/Users/arnav/Desktop/canvas.html",
+		"/Users/arnav/Desktop/boardgame.html",
+		"/Users/arnav/Desktop/veryveryveryverysuperstupidwierdo@gmaildotcom.html",
+		"/Users/arnav/Desktop/what_the_@#$%^&*!.html",
+		"/Users/arnav/Desktop/hgjfd.html",
+		"/Users/arnav/Desktop/hdajkhs.html",
+		"/Users/arnav/Desktop/intrests.sublime-workspace",
+		"/Users/arnav/Desktop/Subline101.html",
+		"/Users/arnav/Desktop/nerfguns.html",
+		"/Users/arnav/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"console.log",
+			"alert",
+			"brickOffsetLeft",
+			"brickX"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "breakout.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 190.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

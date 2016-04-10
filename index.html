@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+	<title>breakoutHome</title>
+	<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+	<link href="css/homescreen.css" rel="stylesheet">	
+</head>
+
+
+<body id="background">
+
+<!--<audio controls> 
+<source src= "music.mp3" type "audio/mpeg">
+</audio>-->
+
+<div id="popupbg">
+
+</div>
+
+
+
+<div id="popuplay">
+
+
+
+ </div>
+
+<div id="popinstruct">
+
+	<p>Hello! Thank you for playing, and welcome too... (wait for it...) BREAKOUT.IO! Bum,bubum,bubum! This is a classic arcade game. THe way you play is that there is a ball, bricks, and a paddle. You move the paddle around using the mouse of arrow keys, trying to deflect the ball. You try to make it so that the ball hits the bricks, since when the bricks are touched by the ball, they break. But you can't let the ball touch the ground, or you will lose one of your 3 lives. When you run out of lives, it's all over! Reload the page to go back. May the pink fluffy unicorns dancing on rainbows enhance you with their awesomely pure coolness!
+	 </p>
+	 <p>Good gaming,</p>
+	 <p>cloudfalcon01</p>
+
+ </div>
+<div class="flex-wrapper" id="main-wrapper">
+	<div class="flex-wrapper" id="logo">
+
+		<header class="flex-wrapper">
+			<img src="breakit.png"></img>
+		</header>
+
+		<div id="button-wrapper">
+			<!--<a href="breakout.html">-->
+				<button id= "playButton">PLAY</button></a>
+				<button id="popupButton">HOW TO PLAY</button>
+				<!--<button>DIFFICULTY</button>-->
+		</div>
+			
+	</div>
+</div>
+<div id="popupbg2">
+
+	<style>
+	* { padding: 0; margin: 0;}
+	canvas { background: #eee; display: block; margin: 0 auto;}
+	</style>
+
+
+<canvas id="Break2" width= "960" height="640"></canvas>
+
+</div>
+<script src="instructions.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
