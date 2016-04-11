@@ -30,10 +30,17 @@ var colorRed = "#D50525";
 var colorYellow = "#EEB211";
 var colorGreen = "#009925";
 var colorBlue = "#3369E8";
+var splatColor = "#000033";
+var brickX = (col*(brickWidth+brickPadding))+brickOffsetLeft;
+var brickY = (row*(brickHeight+brickPadding))+brickOffsetTop;
+var brickIncrease = 1;
+var brickDecrease = 1;
+var ballSize = ballRadius;
+var row = 0;
+var col = 0;
 
-
-
-var brickColors=[	
+//The array for colors.
+var brickColors=[//START_BRICKCOLORS	
 ["E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E"],
 ["E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E"],
 ["E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E"],
@@ -44,100 +51,152 @@ var brickColors=[
 ["E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E"],
 ["E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E"],
 ["E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E","E"]
-];
+];//END_BRICKCOLORS
+
+var brickColor = brickColors [row][col];
 
 //calculations for brick columns
 var bricks = [];
-for(var col=0; col<brickColumnCount; col++) {
+for(var col=0; col<brickColumnCount; col++) {//START_FOR1
 	bricks[col]  = [];
-	for (var row=0; row<brickRowCount; row++) {
-		bricks[col][row] = {
+	for (var row=0; row<brickRowCount; row++) {//START_FOR2
+		bricks[col][row] = {//START_BRICKSCOLROW
 			x: (col*(brickWidth+brickPadding))+brickOffsetLeft, 
 			y: (row*(brickHeight+brickPadding))+brickOffsetTop,
 			status: 1
-		};
-	}
-}
+		}//END_BRICKSCOLROW
+	}//END_FOR2
+}//END_FOR1
 
+var brickColor = brickColors [row][col];
 //deciding the color using an MOD
 
-function decideColor() {
+function decideColor() {//START_DECIDECOLOR
 
 
 	var colorResult = (Math.random()*100) % 4; 
 	var colorResult = Math.floor(colorResult);
 
-	if (colorResult == 0) {
+	if (colorResult == 0) {//START_IFRED
 		return colorRed;
-	}
-	else if (colorResult == 1) {
+	}//END_IFRED
+	else if (colorResult == 1) {//START_IFYELLOW
 		return colorYellow;
-	}
-	else if (colorResult == 2) {
+	}//END_IFYELLOW
+	else if (colorResult == 2) {//END_IFGREEN
 		return colorGreen;
-	}
-	else if (colorResult == 3) {
+	}//END_IFGREEN
+	else if (colorResult == 3) {//START_COLORBLUE
 		return colorBlue;
-	}
+	}//END_COLORBLUE
 
-}
+}//END_DECIDECOLOR
+
+//the SPLAT brick
+
+//function splatBrick() {
+//	ctx.beginPath();
+//	ctx.rect(brickX, brickY, brickWidth, brickHeight);
+//	ctx.fillStyle = splatColor;
+//	ctx.fill();
+//	ctx.closePath();
+//}
+
+
 
 //drawing the bricks
-function drawBricks() {
+function drawBricks() {//START_DRAWBRICKS
 
-	for(var col=0; col<brickColumnCount; col++) {
-		for(var row=0; row<brickRowCount; row++) {
+	for(var col=0; col<brickColumnCount; col++) {//START_FOR1
+		for(var row=0; row<brickRowCount; row++) {//START_FOR2
 
-			if (bricks [col][row].status == 1) {
-				var brickX = (col*(brickWidth+brickPadding))+brickOffsetLeft;
-				var brickY = (row*(brickHeight+brickPadding))+brickOffsetTop;
+			if (bricks [col][row].status == 1) {//START_IF1
+				brickX = (col*(brickWidth+brickPadding))+brickOffsetLeft;
+				brickY = (row*(brickHeight+brickPadding))+brickOffsetTop;
 				ctx.beginPath();
 				ctx.rect(brickX,brickY, brickWidth, brickHeight);
 				var brickColor = brickColors[row][col];
-				if (brickColors[row][col] == "E") {
+				if (brickColors[row][col] == "E") {//START_IF2
 					console.log(brickColors[row][col]);
 					console.log(row);
 					console.log(col);
 					brickColors[row][col] = decideColor();
-				}
+				}//END_IF3
 				ctx.fillStyle = brickColor;
 				ctx.fill();
 				ctx.closePath();
-			}
+			}//END_IF1
 			
-		}
-	}
-}
+		}//END_FOR2
+	}//END_FOR1
+}//END_DRAWBRICKS
+
 //the calculations for breaking the bricks when the ball hits them and telling you when you win
-function collisionDetection() {
-    for(col=0; col<brickColumnCount; col++) {
-        for(row=0; row<brickRowCount; row++) {
+function collisionDetection() {//START_COLLISION
+    for(col=0; col<brickColumnCount; col++) {//START_FOR1
+        for(row=0; row<brickRowCount; row++) {//START_FOR2
             var bck = bricks[col][row];
-            if(bck.status == 1) {
-                if(x > bck.x && x < bck.x+brickWidth && y > bck.y && y < bck.y+brickHeight) {
-                    dy = -dy;
+            if(bck.status == 1) {//START_IF1
+            	// BEGIN_BRICK_COLLISSION
+            	// if the x value of the ball is greater than the x value of the individual brick 
+            	//and if the x value of the ball is less than the brick's width
+            	// and the y value of the ball is greather than the y balue of the individual brick
+            	//and the y value of the ball is less than the brick's height
+                if(x > bck.x && x < bck.x+brickWidth && y > bck.y && y < bck.y+brickHeight) {//START_IF2
+                    dy =-dy;
                     bck.status = 0;
                     score++;
-                    //if(score == brickRowCount*brickColumnCount) {
-                    	//alert("YOU'VE DONE IT! YOU HAVE BEAT THIS GAME! GONGRATS. YOU HAVE SURVIVED FAIL AFTER FAIL, INSULT AFTER INSULT, YOU HAVE DONE IT ALL. CONGRATULAIONS!")
-                    	//document.location.reload();
-                    //} still with old if
-                }
-            }
-        }
-    }
-}
+
+                    //This if statement tells what to do if a brick is red.  
+                		if(brickColors [row] [col] ==[colorRed] ) {
+							dy =-dy;
+                    		bck.status = 0;
+                    		//this asks to decrease the ball's radius
+                    		ballRadius -= brickDecrease;
+                    		//this subtracts one from the score
+                    		                 
+                		}
+                		//This if statement tells what to do if a brick is green.
+	                	if(brickColors [row] [col] ==[colorGreen] ) {
+							dy =-dy;
+	                    	bck.status = 0;
+	                    	//this asks to increase the balls radius
+	                    	ballRadius += brickIncrease;
+	                    	//this asks to increase the score.
+	                    	score += 1;
+                    
+               	 	}
+                    // BEGIN_SUCCESS
+                    if(score == brickRowCount*brickColumnCount) {// BEGIN_SUCCESS
+                    	alert("YOU'VE DONE IT! YOU HAVE BEAT THIS GAME! GONGRATS. YOU HAVE SURVIVED FAIL AFTER FAIL, INSULT AFTER INSULT, YOU HAVE DONE IT ALL. CONGRATULAIONS!");
+                    	document.location.reload();
+                	} //END_SUCCESS
+                } //END_IF2
+
+
+            }//END_IF1
+        }//END_FOR2
+    }//END_FOR1
+}//END_COLLISION
+
 //shwowing the score
 function drawScore() {
 	ctx.font = "16px Georgia";
-	ctx.fillStyle = "orange";
+	ctx.fillStyle = "#9484FF";
 	ctx.fillText("Score: "+score, 8, 20);
 }
 //showing the lives
 function drawLives() {
 	ctx.font = "16px Georgia";
-	ctx.fillStyle = "orange";
+	ctx.fillStyle = "#9484FF";
 	ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+}
+
+//showing Ball Mass
+function drawBallMass(){
+	ctx.font = "16px Georgia";
+	ctx.fillStyle = "#9484FF";
+	ctx.fillText("Ball Mass: "+ballRadius, 90,20)
 }
 
 //the event listeners 
@@ -170,7 +229,7 @@ function keyUpHandler(e) {
 function drawBall() {
 	ctx.beginPath();
 	ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-	ctx.fillStyle="red";
+	ctx.fillStyle="00FF00";
 	ctx.fill();
 	ctx.closePath();
 }
@@ -227,9 +286,12 @@ function draw() {
 	drawBricks();
 	drawScore();
 	drawLives();
+	drawBallMass();
 
-
-	
+	if(ballRadius == 0) {
+		alert("GAME OVER, YOU POT-BELLIED PEABRAINED CODFISH RESEMBLING PIECE OF @#$%^&* *CENSORED*!");
+    		document.location.reload();
+	}
 
 	if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -243,7 +305,7 @@ function draw() {
     	else{
     		lives--;
     		if(!lives) {
-    		alert("GAME OVER, YOU POT-BELLIED PEABRAINED SON OF A CODFISH!");
+    		alert("GAME OVER, YOU POT-BELLIED PEABRAINED CODFISH RESEMBLING PIECE OF @#$%^&* *CENSORED*!");
     		document.location.reload();
     		}
     		else {
@@ -251,22 +313,25 @@ function draw() {
     			y = canvas.height-30;
     			dx = 2;
     			dy = -2;
-    			paddleX = (canvas.width-paddleWidth)/2
-    		}
-    		
+    			paddleX = (canvas.width-paddleWidth)/2;
+    		}    		
     	}
     }
+
 	if(score == brickRowCount*brickColumnCount) {
-                    	alert("YOU'VE DONE IT! YOU HAVE BEAT THIS GAME! GONGRATS. YOU HAVE SURVIVED FAIL AFTER FAIL, INSULT AFTER INSULT, YOU HAVE DONE IT ALL. CONGRATULAIONS!")
+                    	alert("YOU'VE DONE IT! YOU HAVE BEAT THIS GAME! GONGRATS. YOU ARE (not really) THE MAN/WOMAN!");
                     	document.location.reload();
                     }
 
 	 	if(rightPressed && paddleX < canvas.width-paddleWidth) {
         paddleX += 7;
-    }
+    
+    	}
+
 		else if(leftPressed && paddleX > 0) {
         paddleX -= 7;
-    }
+    	
+    	}
 
 	x += dx;
 	y += dy;
@@ -293,20 +358,16 @@ function removeMenu() {
 
 }
 
-function play () {
-	removeMenu();
+function play() {
+	removeMenu();                                                                                                                   
 	bg = document.getElementById('popupbg2');
 
 	setDifficulty();
 	//calling the draw funtion every ten seconds (may be used later for changing difficulty)
-	setInterval(draw, 8); 
+	//setInterval(draw, 8); 
+	setInterval(draw, 8);
 }
 
 var button = document.getElementById('playButton');
-button.addEventListener ('click', play);
-
-
-
-
-
+button.addEventListener ('click', play); 
 
