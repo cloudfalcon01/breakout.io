@@ -1,4 +1,4 @@
-//testing for getting into github master branch- delete this comment later "-__-"
+//testing for getting into github master branch- delete this comment later "~_~"
 
 
 
@@ -9,7 +9,6 @@ var bg; //= document.getElementById('popupbg2');
 //var box = document.getElementById('popinstruct');
 
 //THIS IS THE GAME CODE YOU IDIOT
-
 var canvas = document.getElementById("Break2");
 var ctx = canvas.getContext("2d");
 var x = canvas.width / 2;
@@ -17,7 +16,7 @@ var y = canvas.height - 30;
 var dx = 2;
 var dy = -2;
 var ballRadius = 10;
-var paddleHeight = 30;
+var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
@@ -43,6 +42,8 @@ var brickDecrease = 1;
 var ballSize = ballRadius;
 var row = 0;
 var col = 0;
+var frameCounter = 0;
+var countFrames = false;
 
 //The array for colors.
 var brickColors=[//START_BRICKCOLORS	
@@ -154,23 +155,25 @@ function collisionDetection() {//START_COLLISION
 
                     //This if statement tells what to do if a brick is red.  
                 		if(brickColors [row] [col] ==[colorRed] ) {
-							dy =-dy;
                     		bck.status = 0;
                     		//this asks to decrease the ball's radius
                     		ballRadius -= brickDecrease;
-                    		//this subtracts one from the score
                     		                 
                 		}
                 		//This if statement tells what to do if a brick is green.
 	                	if(brickColors [row] [col] ==[colorGreen] ) {
-							dy =-dy;
 	                    	bck.status = 0;
 	                    	//this asks to increase the balls radius
 	                    	ballRadius += brickIncrease;
-	                    	//this asks to increase the score.
-	                    	score += 1;
-                    
-               	 	}
+               	 		}
+               	 		//This if statement tells what to do if a brick is yellow.
+               	 		if(brickColors [row] [col] ==[colorYellow] ) {
+                    		bck.status = 0;
+                    		countFrames = true;
+                    		var img = document.getElementById("DBan");
+							img.style.visibility = 'visible';
+							canvas.style.visibility = 'hidden';
+                		}
                     // BEGIN_SUCCESS
                     if(score == brickRowCount*brickColumnCount) {// BEGIN_SUCCESS
                     	alert("YOU'VE DONE IT! YOU HAVE BEAT THIS GAME! GONGRATS. YOU HAVE SURVIVED FAIL AFTER FAIL, INSULT AFTER INSULT, YOU HAVE DONE IT ALL. CONGRATULAIONS!");
@@ -292,6 +295,21 @@ function draw() {
 	drawScore();
 	drawLives();
 	drawBallMass();
+	//Countframes means if countframes == true
+	if(countFrames) {
+		frameCounter ++;
+		canvas.style.visibility = 'hidden';
+		var img = document.getElementById("DBan");
+		img.style.visibility = 'visible';
+		if(frameCounter >= 90) {
+
+
+			canvas.style.visibility = 'visible';
+			countFrames = false;
+			frameCounter = 0;
+
+		}
+	}
 
 	if(ballRadius == 0) {
 		alert("GAME OVER, YOU POT-BELLIED PEABRAINED CODFISH RESEMBLING PIECE OF @#$%^&* *CENSORED*!");
@@ -369,10 +387,16 @@ function play() {
 
 	setDifficulty();
 	//calling the draw funtion every ten seconds (may be used later for changing difficulty)
-	//setInterval(draw, 8); 
+	//setInterval(draw, 8);
+	document.body.style.backgroundImage  = "url('DBan.gif')";
+	document.body.style.backgroundSize = "960px 640px";
+	document.body.style.backgroundRepeat = "no-repeat";
+	document.body.style.backgroundPosition = "center";
 	setInterval(draw, 8);
+
 }
 
 var button = document.getElementById('playButton');
 button.addEventListener ('click', play); 
+
 

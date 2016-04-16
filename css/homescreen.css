@@ -27,7 +27,7 @@ html, body {
 
 #background {
 	background-image: url(../breakoutbg.gif);
-	background-repeat: repeat;
+	background-repeat: vertical;
 	background-position: center left;
 	background-size: 100%;
 
