@@ -1,12 +1,3 @@
-//testing for getting into github master branch- delete this comment later "~_~"
-
-
-
-
-// popup background
-var bg; //= document.getElementById('popupbg2');
-// popup box
-//var box = document.getElementById('popinstruct');
 
 //THIS IS THE GAME CODE YOU IDIOT
 var canvas = document.getElementById("Break2");
@@ -34,7 +25,6 @@ var colorRed = "#D50525";
 var colorYellow = "#EEB211";
 var colorGreen = "#009925";
 var colorBlue = "#3369E8";
-var splatColor = "#000033";
 var brickX = (col*(brickWidth+brickPadding))+brickOffsetLeft;
 var brickY = (row*(brickHeight+brickPadding))+brickOffsetTop;
 var brickIncrease = 1;
@@ -44,6 +34,16 @@ var row = 0;
 var col = 0;
 var frameCounter = 0;
 var countFrames = false;
+var audioDeadBlue = new Audio('MP5_SMG-GunGuru-703432894.mp3');
+var audioDeadRed = new Audio('deadred.wav');
+var skinColor;
+var RedButton = document.getElementById('RED');
+var YellowButton = document.getElementById('YELLOW');
+var GreenButton = document.getElementById('GREEN');
+var BlueButton = document.getElementById('BLUE');
+//var color = prompt("Please enter your favorite color out of red, yellow, green, and blue!", "green"); 
+
+
 
 //The array for colors.
 var brickColors=[//START_BRICKCOLORS	
@@ -156,6 +156,7 @@ function collisionDetection() {//START_COLLISION
                     //This if statement tells what to do if a brick is red.  
                 		if(brickColors [row] [col] ==[colorRed] ) {
                     		bck.status = 0;
+                    		document.getElementById('deadRed').play();
                     		//this asks to decrease the ball's radius
                     		ballRadius -= brickDecrease;
                     		                 
@@ -163,16 +164,22 @@ function collisionDetection() {//START_COLLISION
                 		//This if statement tells what to do if a brick is green.
 	                	if(brickColors [row] [col] ==[colorGreen] ) {
 	                    	bck.status = 0;
+	                    	document.getElementById('deadGreen').play();
 	                    	//this asks to increase the balls radius
 	                    	ballRadius += brickIncrease;
                	 		}
                	 		//This if statement tells what to do if a brick is yellow.
                	 		if(brickColors [row] [col] ==[colorYellow] ) {
                     		bck.status = 0;
+                    		document.getElementById('deadYellow').play();
                     		countFrames = true;
                     		var img = document.getElementById("DBan");
 							img.style.visibility = 'visible';
 							canvas.style.visibility = 'hidden';
+                		}
+                		if(brickColors [row] [col] ==[colorBlue] ) {
+                    		bck.status = 0;
+                    		audioDeadBlue.play();  
                 		}
                     // BEGIN_SUCCESS
                     if(score == brickRowCount*brickColumnCount) {// BEGIN_SUCCESS
@@ -236,8 +243,8 @@ function keyUpHandler(e) {
 //drawing the ball
 function drawBall() {
 	ctx.beginPath();
-	ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-	ctx.fillStyle="00FF00";
+	ctx.arc(x, y, ballRadius, 0, Math.PI*2)
+	ctx.fillStyle = color;
 	ctx.fill();
 	ctx.closePath();
 }
@@ -246,7 +253,7 @@ function drawBall() {
 function drawPaddle() {
 	ctx.beginPath;
 	ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-	ctx.fillStyle = "green";
+	ctx.fillStyle = color;
 	ctx.fill();
 	ctx.closePath();
 }
@@ -284,6 +291,24 @@ function setDifficulty() {
 	var difficulty = parseInt(d);
 	paddleWidth = paddleWidth - (difficulty * 2);
 }
+
+var color = prompt("Select a ball and paddle color out of red, yellow, green, or blue.", "green") 
+if (color == "red") {
+	color = "red";
+}
+
+if (color == "yellow") {
+	color = "yellow";
+}
+
+if (color == "green") {
+	color = "green";
+}
+
+if (color == "blue") {
+	color = "blue";
+}
+
 
 //calling the funtions
 function draw() {
@@ -396,7 +421,9 @@ function play() {
 
 }
 
+
 var button = document.getElementById('playButton');
-button.addEventListener ('click', play); 
+button.addEventListener ('click', play);  
+
 
 

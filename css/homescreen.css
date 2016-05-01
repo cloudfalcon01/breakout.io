@@ -42,9 +42,9 @@ html, body {
 button {
 	margin: 5px;
 	padding: 5px 10px;
-	background: rgb(58, 71, 162);
+	background: rgb(255,153,0);
 	border: none;
-	color: #00FF00;
+	color: black;
 }
 
 #popupbg {
@@ -72,6 +72,25 @@ button {
 	color: #00FF00;
 }
 
+audio {
+	visibility: hidden;
+}
+
+#RED {
+	background-color: red;
+}
+
+#YELLOW {
+	background-color: yellow;
+}
+
+#GREEN {
+	background-color: green;
+}
+
+#BLUE {
+	background-color: blue;
+}
 
 
 
