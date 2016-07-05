@@ -13,7 +13,7 @@ var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed =false;
 var brickRowCount = 9;
-var brickColumnCount = 12;
+var brickColumnCount = 12; 
 var brickWidth = 65;
 var brickHeight = 15;
 var brickPadding = 10;
@@ -292,7 +292,7 @@ function setDifficulty() {
 	paddleWidth = paddleWidth - (difficulty * 2);
 }
 
-var color = prompt("Select a ball and paddle color out of red, yellow, green, or blue.", "green") 
+var color = prompt("Select a ball and paddle color out red, orange, yellow, green, blue, purple, black, or pink (which looks like peach. '-_-') Also, if you do something random like, say derpydoomsday, it won't work. It will be random. Actually, it'll be a certain color for each random thing, depending on what you write but... yeah. Just.. yeah. I wonder what color banana is?", "green") 
 if (color == "red") {
 	color = "red";
 }
